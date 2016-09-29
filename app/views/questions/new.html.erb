@@ -1,0 +1,36 @@
+<h2>Create a New Question</h2>
+<br><br>
+<p>Fill in your question, the correct answer, and some wrong answers. You can leave up to three wrong answers blank (you must have at least 1 wrong answer).</p>
+<br><br>
+<form action="<%= questions_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <label>Question
+    <input type="text" name="question[question_text]" value="<%= @question.question_text %>">
+  </label><br><br>
+
+  <label>Correct Answer
+    <input type="text" name="question[answer]" value="<%= @question.answer %>">
+  </label><br><br>
+
+  <label>Wrong Answer 1
+    <input type="text" name="question[wrong_choice1]" value="<%= @question.wrong_choice1 %>">
+  </label><br><br>
+
+  <label>Wrong Answer 2
+    <input type="text" name="question[wrong_choice2]" value="<%= @question.wrong_choice2 %>">
+  </label><br><br>
+
+  <label>Wrong Answer 3
+    <input type="text" name="question[wrong_choice3]" value="<%= @question.wrong_choice3 %>">
+  </label><br><br>
+
+  <label>Wrong Answer 4
+    <input type="text" name="question[wrong_choice4]" value="<%= @question.wrong_choice4 %>">
+  </label><br><br>
+
+  <br>
+  <br>
+  <p>Please double-check to make sure your question and answer is accurate.</p>
+  <button name="Create New Question">Create New Question</button>
+
+</form>

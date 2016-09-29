@@ -17,8 +17,9 @@ ActiveRecord::Schema.define(version: 20160929170153) do
   enable_extension "plpgsql"
 
   create_table "questions", force: :cascade do |t|
-    t.string   "answer"
-    t.string   "wrong_choice1"
+    t.string   "question_text", null: false
+    t.string   "answer",        null: false
+    t.string   "wrong_choice1", null: false
     t.string   "wrong_choice2"
     t.string   "wrong_choice3"
     t.string   "wrong_choice4"

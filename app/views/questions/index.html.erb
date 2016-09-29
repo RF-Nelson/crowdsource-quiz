@@ -1,0 +1,65 @@
+<a href="/" id="go-back">Go back</a>
+<br><br>
+<div class="results" style="font-weight: bold; color: purple;"></div>
+<br>
+<h2>Take the quiz</h2>
+<p>All questions here were (presumably) created by other students in the PAC I class.</p>
+<br><br>
+  <% @questions = @questions.shuffle %>
+  <% @questions.each do |question| %>
+    <form class="question-form">
+      <% questions_array = [] %>
+      <% questions_array.push(question.answer) %>
+      <% questions_array.push(question.wrong_choice1) %>
+      <% questions_array.push(question.wrong_choice2) if question.wrong_choice2 != "" %>
+      <% questions_array.push(question.wrong_choice3) if question.wrong_choice3 != "" %>
+      <% questions_array.push(question.wrong_choice4) if question.wrong_choice4 != "" %>
+      <% questions_array = questions_array.shuffle %>
+      <div class="question id-<%= question.id %>">
+        <strong><%= question.question_text %></strong>
+        <br>
+        <% questions_array.each do |possible_answer| %>
+          <input type="radio" name="<%= question.id %>" class="<%= 'correct' if possible_answer == question.answer %>">
+            <span class="choice"><%= possible_answer %></span>
+          </input>
+          <br>
+        <% end %>
+        <br>
+      </div>
+
+      <br><br>
+    </form>
+  <% end %>
+
+<button name="Submit Answers" onclick="window.checkAnswers()">Submit Answers</button>
+
+<script type="text/javascript">
+  console.log("Hey, what are you doing looking here!?")
+
+  window.checkAnswers = function () {
+    totalQuestions = $('.question-form').length
+    correctAnswers = 0
+
+    $('.correct').each(function (i) {
+      $(this).next().css('font-weight', 'bold')
+      $(this).next().css('color', 'green')
+    })
+
+    $('form input[type=radio]:checked').each(function (i) {
+      if (!$(this).hasClass("correct")) {
+        $(this).next().css('color', 'red')
+        $(this).next().css('font-weight', 'bold')
+      } else {
+        correctAnswers++
+      }
+    })
+
+    percentCorrect = correctAnswers / totalQuestions * 100
+
+    $('.results').html("You got " + correctAnswers + " out of " + totalQuestions + " correct for a score of " + percentCorrect + "%.")
+
+    $('html, body').animate({
+      scrollTop: $("#go-back").offset().top
+    }, 500)
+  }
+</script>
